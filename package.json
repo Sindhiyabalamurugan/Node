@@ -1,0 +1,22 @@
+{
+  "name": "applicationbackend",
+  "version": "1.0.0",
+  "description": "IndePhysio",
+  "main": "app.js",
+  "scripts": {
+    "nodemon": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.9",
+    "nodemon": "^3.0.3"
+  }
+}
