@@ -25,6 +25,12 @@ const pool = mysql.createPool({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+app.get('/', (req, res) => {
+  res.send('Hello, this is a simple Express server!');
+});
+
+
 // Middleware to enable CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Update with your frontend URL
