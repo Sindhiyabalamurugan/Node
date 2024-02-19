@@ -14,7 +14,7 @@ const port = 3002;
 // Create a MySQL connection pool
 const pool = mysql.createPool({
   
-    host: 'localhost',
+    host:172.31.5.183,
     user: 'root',
     
     password: '',
