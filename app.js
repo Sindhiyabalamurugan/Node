@@ -6,10 +6,12 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const axios = require('axios');
+const cors = require('cors');
 
 // Create an Express application
 const app = express();
 const port = 3002;
+app.use(cors());
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
