@@ -554,6 +554,84 @@ app.get('/candidates', (req, res) => {
   });
 });
 
+// POST route for form submission
+app.post('/submit-forms', (req, res) => {
+  const { name, email, mobile, subject, description } = req.body;
+
+  // Save form submission to MySQL database
+  con.query('INSERT INTO form_submissions (name, email, mobile, subject, description) VALUES (?, ?, ?, ?, ?)',
+    [name, email, mobile, subject, description],
+    (error, results) => {
+      if (error) {
+        console.error('Error saving form submission to database:', error);
+        res.status(500).send('Error saving form submission');
+      } else {
+        console.log('Form submission saved to database');
+
+        // Send email notification
+        const mailOptions = {
+          from: email,
+          to: 'sindhiyabalamurugan@gmail.com', // Change this to your actual recipient email address
+          subject: 'New Form Submission',
+          text: `
+            Name: ${name}
+            Email: ${email}
+            Mobile: ${mobile}
+            Subject: ${subject}
+            Description: ${description}
+          `
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error('Error sending email:', error);
+          } else {
+            console.log('Email sent:', info.response);
+          }
+        });
+
+        res.status(200).send('Form submitted successfully');
+      }
+    });
+});
+
+
+
+
+
+app.post('/add_form', (req, res) => {
+ const formData = req.body;
+
+ // SQL query to insert form data into database
+ const sql = `INSERT INTO contact_form_data (name, email, mobile, dob, qualification, college, graduation, language_level, experience, current_address, permanent_address, reference) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+ const values = [
+   formData.name,
+   formData.email,
+   formData.mobile,
+   formData.dob,
+   formData.qualification,
+   formData.college,
+   formData.graduation,
+   formData.languagelevel,
+   formData.experience,
+   formData.currentaddress,
+   formData.permanentaddress,
+   formData.reference
+ ];
+
+ // Execute the SQL query
+ con.query(sql, values, (err, result) => {
+   if (err) {
+     console.error(err);
+     res.status(500).send('Error storing form data');
+   } else {
+     console.log('Form data stored successfully');
+     res.status(200).send('Form data stored successfully');
+   }
+ });
+});
+
+
 
 // Start the server
 app.listen(port, () => {
