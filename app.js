@@ -554,6 +554,16 @@ app.get('/candidates', (req, res) => {
   });
 });
 
+
+// Nodemailer configuration
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'sindhiyabalamurugan@gmail.com',
+    pass: 'adxdhvzsshtynuif'
+  }
+});
+
 // POST route for form submission
 app.post('/submit-forms', (req, res) => {
   const { name, email, mobile, subject, description } = req.body;
