@@ -569,7 +569,7 @@ app.post('/submit-forms', (req, res) => {
   const { name, email, mobile, subject, description } = req.body;
 
   // Save form submission to MySQL database
-  con.query('INSERT INTO form_submissions (name, email, mobile, subject, description) VALUES (?, ?, ?, ?, ?)',
+  pool.query('INSERT INTO form_submissions (name, email, mobile, subject, description) VALUES (?, ?, ?, ?, ?)',
     [name, email, mobile, subject, description],
     (error, results) => {
       if (error) {
@@ -630,7 +630,7 @@ app.post('/add_form', (req, res) => {
  ];
 
  // Execute the SQL query
- con.query(sql, values, (err, result) => {
+ pool.query(sql, values, (err, result) => {
    if (err) {
      console.error(err);
      res.status(500).send('Error storing form data');
