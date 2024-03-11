@@ -642,6 +642,55 @@ app.post('/add_form', (req, res) => {
 });
 
 
+// POST route for form submission
+app.post('/submitForm', (req, res) => {
+  const formData = req.body;
+  const {
+    name,
+    email,
+    mobile,
+    company,
+    typeofposition,
+    staff,
+    curteam,
+    experience,
+    averagetime,
+    patienttype,
+    license,
+    policy,
+    additionalinformation
+  } = formData;
+
+  // Insert form data into MySQL database
+  const sql = `INSERT INTO job_applications 
+               (name, email, mobile, company, typeofposition, staff, curteam, experience, averagetime, patienttype, license, policy, additionalinformation) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const values = [
+    name,
+    email,
+    mobile,
+    company,
+    typeofposition,
+    staff,
+    curteam,
+    experience,
+    averagetime,
+    patienttype,
+    license,
+    policy,
+    additionalinformation
+  ];
+
+  pool.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting form data:', err);
+      res.status(500).send('Error submitting form');
+    } else {
+      console.log('Form data inserted successfully');
+      res.status(200).send('Form submitted successfully');
+    }
+  });
+});
 
 // Start the server
 app.listen(port, () => {
