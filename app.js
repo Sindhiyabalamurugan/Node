@@ -692,6 +692,31 @@ app.post('/submitForm', (req, res) => {
   });
 });
 
+// POST route for form submission
+app.post('/submit', (req, res) => {
+  const formData = req.body;
+  
+  // Insert form data into MySQL database
+  const sql = 'INSERT INTO form_data (full_name, email, mobile, professional_level) VALUES (?, ?, ?, ?)';
+  const values = [
+    formData.fullName,
+    formData.email,
+    formData.mobile,
+    formData.professionalLevel
+  ];
+
+  pool.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting form data:', err);
+      res.status(500).send('Error submitting form');
+    } else {
+      console.log('Form data inserted successfully');
+      res.status(200).send('Form submitted successfully');
+    }
+  });
+});
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
