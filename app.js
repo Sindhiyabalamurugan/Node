@@ -697,7 +697,7 @@ app.post('/submit', (req, res) => {
   const formData = req.body;
   
   // Insert form data into MySQL database
-  const sql = 'INSERT INTO form_data (full_name, email, mobile, professional_level) VALUES (?, ?, ?, ?)';
+  const sql = 'INSERT INTO form_data (full_name, email, mobile, professionalLevel) VALUES (?, ?, ?, ?)';
   const values = [
     formData.fullName,
     formData.email,
